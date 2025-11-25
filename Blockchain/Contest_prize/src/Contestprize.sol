@@ -12,4 +12,6 @@ contract ContestPrize is Ownable {
         bool status;
         bool exist;
     }
+     // for save each contest wtih ID
+    mapping(uint => comp) Components;
 }
