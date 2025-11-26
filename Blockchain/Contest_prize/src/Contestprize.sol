@@ -2,8 +2,9 @@
 pragma solidity ^0.8.0;
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract ContestPrize is Ownable, Pausable {
+contract ContestPrize is Ownable, Pausable, ReentrancyGuard {
     constructor() Ownable(msg.sender) {}
 
     struct comp {
@@ -19,6 +20,8 @@ contract ContestPrize is Ownable, Pausable {
 
     event signupcompleted(uint256 indexed ID, address indexed user);
 
+    event WinnersAwarded(uint256 ID, address first, address second, address third);
+
     modifier ChecknotexistId(uint id) {
         require(!Components[id].exist, "this ID is already exist");
         _;
@@ -33,6 +36,9 @@ contract ContestPrize is Ownable, Pausable {
         require(Components[id].exist, "this ID is not exist");
         _;
     }
+
+    // Error for wrong address inputs
+    error wrongaddress(address first , address second , address third);
 
 
     // This function is used to define a contest and takes the ID and cost of participating in the contest.
@@ -65,5 +71,32 @@ contract ContestPrize is Ownable, Pausable {
     // if contract is paused, no one can enter the competition
     function unpause() external onlyOwner {
         _unpause();
+    }
+
+    // Internal function to safely transfer Ether
+    function _safetransfer(address payable recipient, uint256 amount) internal {
+        (bool success,) = recipient.call{value: amount}("");
+        require(success, "Transfer failed");
+    }
+
+    // Divides the prizes of a competition among the winners with predetermined percentages
+    function Awardwinners(
+        address payable _first,
+        address payable _second,
+        address payable _Third,
+        uint256 _ID
+    ) external onlyOwner CheckexistID(_ID) CheckActive(_ID) nonReentrant whenNotPaused {
+        if (_first == address(0) || _second == address(0) || _Third == address(0)) {
+            revert wrongaddress(_first, _second, _Third);
+        }
+        uint256 award = Components[_ID].Total_amount; 
+        Components[_ID].status = false;
+        _safetransfer(_first, (award * 30) / 100);
+        Components[_ID].Total_amount -= (30 * award) / 100 ;
+        _safetransfer(_second, (award * 20) / 100);
+        Components[_ID].Total_amount -= (20 * award) / 100 ;
+        _safetransfer(_Third, (award * 10) / 100);
+        Components[_ID].Total_amount -= (10 * award) / 100 ;
+        emit WinnersAwarded(_ID, _first, _second, _Third);
     }
 }
