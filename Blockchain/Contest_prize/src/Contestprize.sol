@@ -17,6 +17,8 @@ contract ContestPrize is Ownable {
 
     event ContestCreated(uint256 ID, uint256 Price);
 
+    event signupcompleted(uint256 indexed ID, address indexed user);
+
 
     // This function is used to define a contest and takes the ID and cost of participating in the contest.
     function Addcomp(
@@ -30,5 +32,15 @@ contract ContestPrize is Ownable {
             Components[_ID] = comp(0, _Price, true, true);
         }
         emit ContestCreated(_ID, _Price);
+    }
+
+    // this function is for user signup in a contest user should call 
+    function signup(uint256 _ID) external payable {
+    uint256 price = Components[_ID].Price;
+    require(msg.value == price, "Incorrect ETH amount");
+
+    Components[_ID].Total_amount += msg.value;
+
+    emit signupcompleted(_ID, msg.sender);
     }
 }
