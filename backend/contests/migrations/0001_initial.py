@@ -23,6 +23,9 @@ class Migration(migrations.Migration):
                 ('prize', models.CharField(max_length=255)),
                 ('image', models.ImageField(blank=True, null=True, upload_to='events/')),
                 ('pdf_rules', models.FileField(blank=True, null=True, upload_to='rules/')),
+                ('capacity', models.IntegerField(default=0)),
+                ('signed_up', models.IntegerField(default=0)),
+
             ],
         ),
     ]
