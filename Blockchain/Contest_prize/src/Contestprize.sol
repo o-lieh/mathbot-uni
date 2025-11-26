@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
 
-contract ContestPrize is Ownable {
+contract ContestPrize is Ownable, Pausable {
     constructor() Ownable(msg.sender) {}
 
     struct comp {
@@ -47,5 +47,13 @@ contract ContestPrize is Ownable {
     Components[_ID].Total_amount += msg.value;
 
     emit signupcompleted(_ID, msg.sender);
+    }
+
+    function pause() external onlyOwner {
+        _pause();
+    }
+    // if contract is paused, no one can enter the competition
+    function unpause() external onlyOwner {
+        _unpause();
     }
 }
