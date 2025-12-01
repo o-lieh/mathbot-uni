@@ -5,7 +5,7 @@
     padding: 50px 30px;
     margin: 100px 80px 100px 80px;
     
-    background-color: #0056b3;
+    background-color: #393B43;
 
     /* Layout grid */
     .details-grid {
@@ -20,17 +20,16 @@
 
     /* Info Box */
     .info-box {
-        background: linear-gradient(135deg, #aac8f0, #f6faff);
+        background: #16171B;/*linear-gradient(135deg, #aac8f0, #f6faff);*/
         padding: 35px;
         border-radius: 18px;
-        border: 1px solid#dce8ff;
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 
         h3 {
             font-size: 2.8rem;
             font-weight:700;
             margin-bottom: 20px;
-            color: #0d6efd;
+            color: #ffffff;
         }
 
         ul {
@@ -42,12 +41,12 @@
             li {
                 padding: 14px 0;
                 font-size: 1.8rem;
-                color: #444;
-                border-bottom: 1px solid #f1f1f1;
+                color: #fff;
+               /* border-bottom: 1px solid #f1f1f1;*/
 
                 strong {
-                    color: #222;
-                    font-weight: 700;
+                    color: #fff;
+                    font-weight: 500;
                     padding-left: 10px;
                 }
 
@@ -57,12 +56,12 @@
             }
             li.rules-download {
             cursor: pointer;
-            color: #007bff;
+            color: #fff;
             text-decoration: underline;
             transition: 0.2s;
 
             &:hover {
-                color: #0056b3;
+                color: #26A58F;
             }
         }
         }
@@ -70,12 +69,9 @@
 
     /* Join Box */
     .join-box {
-        background: linear-gradient(135deg,  #f6faff ,#aac8f0);
+        
         padding: 35px;
-        border-radius: 18px;
-        border: 1px solid #dce8ff;
-        box-shadow: 0 6px 18px rgba(0, 60, 160, 0.08);
-
+      
 .competition-image-wrapper {
     width: 100%;
     margin-bottom: 15px;
@@ -99,17 +95,17 @@
             font-size: 1.8rem; 
             font-weight: 600;
             text-align: center;
-            background: #0d6efd;
+            background: #3A7D6F;
             color: white;
             border-radius: 12px;
             text-decoration: none;
             transition: 0.25s ease;
             letter-spacing: 0.5px;
-            box-shadow: 0 6px 15px rgba(13, 110, 253, 0.28);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.28);
 
             &:hover {
-                background: #004bb5;
-                box-shadow: 0 10px 20px rgba(0, 75, 181, 0.35);
+             
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
                 transform: translateY(-3px);
             }
         }

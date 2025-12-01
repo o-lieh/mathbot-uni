@@ -15,7 +15,7 @@
       margin: 0;
       font-size: 3.6rem;
       font-weight: 800;
-      color: #45d1e4;
+      color: #A8A8A8;
       white-space: nowrap;
     }
 
@@ -23,7 +23,7 @@
       content: "";
       flex-grow: 1;
       height: 2px;
-      background: #45d1e4;
+      background: #A8A8A8;
       margin-top: 2px;
     }
   }
@@ -33,7 +33,7 @@
     div.contest-card {
       padding: 20px 15px;
       border-radius: 16px;
-      background: linear-gradient(135deg, #1b2c4d, #25416b);
+      background: #393B43 /*linear-gradient(135deg, #1b2c4d, #25416b) */ ;
       min-height: 270px;
 
       display: flex;
@@ -74,18 +74,18 @@
         width: 100%;
         padding: 12px 0;
         text-align: center;
-        background: linear-gradient(135deg, #00b7ff, #05d8ff);
+        background: #3A7D6F /*linear-gradient(135deg, #00b7ff, #05d8ff) */;
         color: #fff;
         border-radius: 10px;
         text-decoration: none;
         font-weight: 700;
         font-size: 1.5rem;
         transition: all 0.3s ease;
-        box-shadow: 0 5px 12px rgba(0, 183, 255, 0.35);
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.6);
 
         &:hover {
-          background: linear-gradient(135deg, #419cac, #5ae1eb);
-          box-shadow: 0 8px 18px rgba(0, 209, 255, 0.45);
+          background: #3A7D6F /*linear-gradient(135deg, #419cac, #5ae1eb)*/;
+          box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
           transform: translateY(-2px);
         }
       }

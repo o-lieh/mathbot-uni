@@ -126,12 +126,12 @@ function CompetitionDetails() {
                         <section className="info-box">
                             <h3>Contest Details</h3>
                             <ul>
-                                <li><strong>Location:</strong> {contest.location}<i class="fas fa-map-marker-alt"></i></li>
-                                <li><strong>Date:</strong> {contest.date}<i class="fas fa-calendar-alt"></i></li>
-                                <li><strong>Time:</strong> {contest.time} <i class="fas fa-clock"></i></li>
-                                <li><strong>Prize:</strong> {contest.prize}<i class="fas fa-trophy"></i></li>
+                                <li><strong> {contest.location}</strong><i class="fas fa-map-marker-alt"></i></li>
+                                <li><strong> {contest.date}</strong><i class="fas fa-calendar-alt"></i></li>
+                                <li><strong> {contest.time} </strong><i class="fas fa-clock"></i></li>
+                                <li><strong> {contest.prize}</strong><i class="fas fa-trophy"></i></li>
                                 <li className="rules-download" onClick={handleDownloadRules}>
-                                    <strong>Contest Rules</strong><i class="fas fa-scroll"></i>
+                                    <strong></strong><i class="fas fa-scroll"></i>
                                 </li>
                             </ul>
                         </section>

@@ -20,9 +20,9 @@
   h2 div {
     font-size: 7rem;
     font-weight: 800;
-    color: #72ffb5;
+    color: #FFFFFF;
     letter-spacing: 1.5px;
-    text-shadow: 0 0 14px rgba(0, 255, 150, 0.6);
+   /* text-shadow: 0 0 14px rgba(0, 0, 0, 0.6);*/
     margin-bottom: 30px;
     margin-top: 50px;
   }
@@ -34,8 +34,8 @@
   margin-top: 0px;
 
   /* Neon green base */
-  background: linear-gradient(135deg, #32ff9b, #0fca63) !important;
-  color: #ffffff;
+  background: #3A7D6F; /*linear-gradient(135deg, #32ff9b, #0fca63) !important;*/
+  color: #D9D9D9;
   font-weight: 700;
   border: none;
   border-radius: 10px !important;
@@ -46,9 +46,9 @@
   direction: ltr;
   
   /* Soft neon glow */
-  box-shadow:
+  /*box-shadow:
     0 0 25px rgba(0, 255, 160, 0.45),
-    0 0 45px rgba(0, 255, 120, 0.30) !important;
+    0 0 45px rgba(0, 255, 120, 0.30) !important;*/
 
   min-width: 200px;
   min-height: 50px;
@@ -57,13 +57,13 @@
 /* Hover: super bright neon flash + ripple glow */
 .contest-register-button:hover {
   transform: translateY(-5px);
-  background: linear-gradient(135deg, #66ffbd, #19e67f) !important;
+ /* background:linear-gradient(135deg, #66ffbd, #19e67f) !important;*/
 
   /* Much brighter glow */
-  box-shadow:
+  /* box-shadow:
     0 0 35px rgba(0, 255, 180, 0.85),
     0 0 70px rgba(0, 255, 200, 0.60),
-    0 0 95px rgba(0, 255, 200, 0.45);
+    0 0 95px rgba(0, 255, 200, 0.45);*/
 
   /* Slow breathing pulse */
   animation: superPulse 1s infinite alternate;
@@ -77,12 +77,12 @@
   left: -150%;
   width: 120%;
   height: 100%;
-  background: linear-gradient(
+ /* background: linear-gradient(
     120deg,
     transparent 0%,
     rgba(255, 255, 255, 0.35) 50%,
     transparent 100%
-  );
+  ); */
   transform: skewX(-20deg);
   transition: all 0.4s ease;
 }
@@ -91,7 +91,7 @@
   left: 150%;
 }
 
-/* Pulse animation */
+/* Pulse animation
 @keyframes superPulse {
   from {
     box-shadow:
@@ -104,6 +104,7 @@
       0 0 90px rgba(0, 255, 220, 0.6);
   }
 }
+*/
 
 .contest-register-button:active {
   transform: scale(0.96);

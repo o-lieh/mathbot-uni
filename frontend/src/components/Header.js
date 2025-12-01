@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import IsAuthenticated from "../utils/IsAuthenticated.js";
-import logo from "../assets/images/MATHBOTrect.png"
+import logo from "../assets/images/greenlogo.svg"
 import API_URL from '../utils/api.js';
 import '../assets/scss/pages/_header.scss';
 
@@ -51,7 +51,7 @@ function Header() {
                     
                     
 
-                    <Link title="صفحه اصلی" to="/">
+                    <Link title="home" to="/">
                         <div className="header-buttons">
                             <i className="fa-solid fa-house header-buttons-ico"></i>
                         </div>
