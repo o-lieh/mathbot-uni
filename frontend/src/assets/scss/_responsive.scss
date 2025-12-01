@@ -1,0 +1,120 @@
+@media only screen and (max-width: 400px) {
+    .container-login {
+        max-width: 300px;
+    }
+    .form {
+        margin: 0 25px 100px !important;
+    }
+}
+
+@media only screen and (max-width: 387px) {
+    .logo-button {
+        font-size: 15px;
+    }
+    .login-button {
+        font-size: 15px;
+    }
+    .edit-profile-box-input {
+        width: 210px !important;
+    }
+}
+
+@media only screen and (max-width: 490px) {
+    .title h3 {
+        line-height: 35px;
+        text-align: center;
+    }
+    .title {
+        margin-top: -10px;
+    }
+    .forum-title h3 {
+        font-size: 17px;
+        padding: 2px 7px;
+    }
+    .ask-your-Q {
+        p, h3 {
+            text-align: center;
+            padding-right: 15px;
+            padding-left: 15px;  
+        }   
+    }
+}
+
+@media only screen and (max-width: 631px) {
+    .developers,
+    .games,
+    .about {
+        padding: 70px 50px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .section-item-1 {
+        padding: 35px;
+    }
+    .section-item-2 {
+        padding: 35px;
+    }
+    .section-item-3 {
+        padding: 35px;
+    }
+    .footer-bottom {
+        text-align: center;
+    }
+    .account {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    .about {
+        padding: 30px 25px !important;
+    }
+    .back-to-ask-box {
+        margin: 0 !important;
+    }
+    .margin-mobile-responsive {
+        display: block !important;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .section-header {
+        margin-bottom: -20px;
+    }
+    .section-header-boxs {
+        margin: 20px;
+    }
+    .search-box-big {
+        display: none;
+    }
+    .header-responsive {
+        display: none !important;
+    }
+    .mobile-header {
+        display: block !important;
+    }
+    body {
+        padding-bottom: 130px;
+    }
+    .footerBox {
+        margin-bottom: 65px;
+    }
+    .account-sidebar-links {
+        text-align: center;
+    }
+    .account-section {
+        margin-top: 30px;
+    }
+    .not-display-in-mobile {
+        display: none;
+    }
+    .sidebar {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .our-team-img {
+        width: 150px !important;
+        height: 150px !important;
+    }
+}

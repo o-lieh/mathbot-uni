@@ -1,0 +1,241 @@
+/* Account */
+
+$font-family-IRANYekan: "IRANYekanWebFn-Light" !important;
+
+.account {
+    background: #212226;
+    padding: 15px 0px 15px 0px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 rgba(20, 83, 155, .05);
+    margin-bottom: 30px;
+}
+
+.account-sidebar {
+    padding: 15px;
+    border-radius: 10px;
+    background: #16171a;
+    margin-bottom: 15px;
+}
+
+.account-user-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.account-user-img-small {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 15px;
+}
+
+.account-user-img-box {
+    text-align: center;
+    float: right;
+}
+
+.account-user-img-box-large {
+    text-align: center;
+}
+
+.post-box-big-details {
+    margin-top: 20px;
+}
+
+.forum-title-ask h6 {
+    float: right;
+    margin-right: 8px;
+    color: #fff;
+}
+
+.account-user-img-little {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.the-lost-boy-img {
+    width: 250px;
+}
+
+.account-user-img-big {
+    border-radius: 50%;
+    width: 100px;
+}
+
+.account-user-img-sidebar {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.account-sidebar-name {
+    display: flex;
+    margin-top: 8px;
+    font-weight: 900;
+}
+
+.change-img {
+    text-align: right;
+}
+
+.edit-box-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    
+}
+
+.edit-box-input + label {
+    padding: 5px 10px;
+    font-family: $font-family-IRANYekan;
+    color: white;
+    background-color: rgb(41, 165, 141);
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.edit-box-input:focus + label,
+.edit-box-input + label:hover {
+    background-color: #aae68b;
+}
+
+.account-sidebar-links {
+    padding: 9px;
+    a {
+        color: #333;
+    }
+    span {
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 10px;
+        &:hover {
+            transition: all 0.2s ease;
+            background: #29a58d;
+            color: #fff;
+        }
+    } 
+}
+
+.margin-mobile-responsive {
+    display: none;
+}
+
+.comments-showing-accountPage {
+    background: #16171a;
+    padding: 13px 10px 5px 10px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 rgba(20,83,155,.05);
+    margin-bottom: 20px;
+    display: flex;
+    transition: all 0.2s ease;
+    &:hover {
+        background: #323337;
+        transition: all 0.2s ease;
+    }
+}
+
+.comments-showing-accountPage a {
+    color: #fff;
+    &:hover {
+        color: #fff;
+    }
+}
+
+.comments-showing-accountPage h5 {
+    line-height: 25px;
+}
+
+.h5-mini-profile {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: 900;
+}
+
+.score {
+    background: #eee;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.post-mini-profile {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #333;
+    line-height: 30px;
+}
+
+.edit-profile-box {
+    margin-top: 15px;
+    .edit-profile-box-input {
+        border-radius: 5px;
+        width: 350px;
+        padding: 5px;
+        border: 0;
+        background: #d1d1d1;
+        margin-top: 10px;
+    }
+}
+
+.change-pass-box {
+    margin-right: 25px;
+}
+
+.change-big-box {
+    border-radius: 5px;
+    padding: 7px;
+    text-decoration: none;
+    border: 1px solid #29a58d;
+    width: fit-content;
+}
+
+.change-button {
+    cursor: pointer;
+}
+
+.profile-view {
+    background: transparent;
+    color: #29a58d;
+    border-radius: 5px;
+    padding-top: 7px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 300;
+    font-size: 13px;
+    border: 1px solid #29a58d;
+    margin-top: 20px;
+    &:hover {
+        background: transparent;
+        color: #aae68b;
+        transition: all 0.3s ease;
+        border: 1px solid #aae68b;
+    }
+}
+
+.save-profile-box {
+    background: #29a58d;
+    color: #fff;
+    border: 0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.edit-box {
+    margin-top: 10px;
+}
+
+.user-data-sidebar {
+    text-align: center;
+    border-bottom: 1px #736f6f solid;
+    margin: 15px 0;
+    padding-bottom: 10px;
+    h4 {
+        margin-top: 20px;
+        font-weight: 900;
+    }
+}

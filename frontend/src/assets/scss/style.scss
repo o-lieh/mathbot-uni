@@ -1,0 +1,77 @@
+/* SCSS Codes */
+$font-family-IRANYekan: "IRANYekanWebFn-Light" !important;
+
+/* Fonts */
+@font-face {
+    font-family: "IRANYekanWebFn-Light";
+    src: url("../fonts/iranyekanweblightfanum.eot");
+    /* IE9 Compat Modes */
+    src: url("../fonts/iranyekanweblightfanum.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/iranyekanweblightfanum.otf") format("opentype"), /* Open Type Font */
+    url("../fonts/iranyekanweblightfanum.svg") format("svg"), /* Legacy iOS */
+    url("../fonts/iranyekanweblightfanum.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("../fonts/iranyekanweblightfanum.woff") format("woff"), /* Modern Browsers */
+    url("../fonts/iranyekanweblightfanum.woff2") format("woff2");
+    /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 70px;
+    background-color: #16171a !important;
+    color: #fff !important;
+}
+
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+ol,
+span,
+input,
+button {
+    font-family: $font-family-IRANYekan;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.number-of-comments-homepage {
+    float: left;
+    margin: 5px;
+}
+
+.loader-spinning-wheel {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    border: 5px solid #cccccc;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    border-radius: 50%;
+    border-top: 5px solid #29a58d;
+    animation: loader-spin infinite 1s linear;
+}
+  
+@keyframes loader-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@import "responsive";
+@import "editor";
+@import "pages/main";
