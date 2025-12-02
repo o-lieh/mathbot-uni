@@ -4,7 +4,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract ContestPrize is Ownable, Pausable, ReentrancyGuard {
+contract Contestprize is Ownable, Pausable, ReentrancyGuard {
     constructor() Ownable(msg.sender) {}
 
     struct comp {

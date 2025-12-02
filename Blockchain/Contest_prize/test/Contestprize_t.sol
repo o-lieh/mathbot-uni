@@ -2,12 +2,12 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
-import "../src/ContestPrize.sol";
+import "../src/Contestprize.sol";
 
-contract ContestPrizeTest is Test {
-   ContestPrize _contestPrize;
+contract ContestprizeTest is Test {
+   Contestprize _contestPrize;
     function setUp() public {
-      _contestPrize = new ContestPrize();
+      _contestPrize = new Contestprize();
     }
    
     function testaddcomp() public {
