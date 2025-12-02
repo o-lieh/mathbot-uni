@@ -28,7 +28,7 @@ class Router extends Component {
                     <Route path="/users/:username" element={<Users />} exact />
                     <Route path="/contests/:id" element={<CompetitionDetails />} />
     
-                    <Route path="/contests/:id" element={<Contest />} exact />
+                   /* <Route path="/contests/:id" element={<Contest />} exact />*/
                     <Route element={<NotFoundPage />} exact />
                 </Routes>
             </BrowserRouter>

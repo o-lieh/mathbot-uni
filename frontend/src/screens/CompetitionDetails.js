@@ -13,23 +13,47 @@ function CompetitionDetails() {
 
     // Download rules
     const handleDownloadRules = () => {
-        if (!contest.rules) {
+        if (!contest.pdf_rules) {
             alert("فایل قوانین موجود نیست");
             return;
         }
 
         const link = document.createElement("a");
-        link.href = contest.rules;  // backend link or test link
+        link.href = contest.pdf_rules;  // backend link or test link
         link.download = "";
         link.click();
     };
 
-    useEffect(() => {
+
         // ------------------ API Fetch ------------------
-        /*
+ useEffect(() => {
+    setLoading(true);
+
+    fetch(`http://127.0.0.1:8000/api/contests/${id}/`)
+        .then((res) => {
+            if (!res.ok) throw new Error("Contest not found");
+            return res.json();
+        })
+        .then((data) => {
+            setContest(data);
+            setError(null);
+        })
+        .catch((err) => {
+            console.error(err);
+            setError("Error loading contest");
+        })
+        .finally(() => {
+            setLoading(false);
+        });
+}, [id]);
+
+
+  if (!contest) return <div>Loading...</div>;
+
+/*
         const fetchContest = async () => {
             try {
-                const response = await fetch(`https://api.example.com/contests/${id}`);
+                const response = await fetch(`https://127.0.0.1:8000/api/contests/`);
                 if (!response.ok) throw new Error("مسابقه یافت نشد");
                 const data = await response.json();
                 setContest(data);
@@ -41,7 +65,7 @@ function CompetitionDetails() {
         };
         fetchContest();
         */
-
+/*
         // ------------------ Test Data ------------------
         const testContests = [
             {
@@ -78,14 +102,13 @@ function CompetitionDetails() {
                 rules: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
             },
         ];
-
         const foundContest = testContests.find(c => c.id === id);
         if (foundContest) setContest(foundContest);
         else setError("Contest not found");
         setLoading(false);
 
     }, [id]);
-
+*/
     if (loading) {
         return (
             <div>
@@ -124,14 +147,16 @@ function CompetitionDetails() {
                     <div className="details-grid">
                         {/* Info box */}
                         <section className="info-box">
-                            <h3>Contest Details</h3>
+                            <h3>{contest.title}</h3>
                             <ul>
+
                                 <li><strong> {contest.location}</strong><i class="fas fa-map-marker-alt"></i></li>
                                 <li><strong> {contest.date}</strong><i class="fas fa-calendar-alt"></i></li>
                                 <li><strong> {contest.time} </strong><i class="fas fa-clock"></i></li>
-                                <li><strong> {contest.prize}</strong><i class="fas fa-trophy"></i></li>
+                                <li><strong> {contest.prize} for winner!</strong><i class="fas fa-trophy"></i></li>
                                 <li className="rules-download" onClick={handleDownloadRules}>
-                                    <strong></strong><i class="fas fa-scroll"></i>
+                                    <strong>Contest-Rules.pdf</strong><i class="fas fa-scroll"></i>
+
                                 </li>
                             </ul>
                         </section>
