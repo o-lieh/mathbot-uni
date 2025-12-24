@@ -9,7 +9,7 @@ function ContestRegisterModal({ contestId, onClose }) {
 
   const handlePayment = async () => {
     if (!teamName.trim()) {
-      alert("Please enter a team name");
+      alert("*Team name(minimum 3 characters");
       return;
     }
 
