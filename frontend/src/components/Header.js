@@ -47,20 +47,17 @@ function Header() {
 
         <div className="col-md-11 header-responsive header-icons-box">
 
-          {/* WALLET BUTTON */}
+          {/* Wallet / Connect */}
           {!wallet ? (
             <div
-              className="header-buttons header-buttons-login"
+              className="header-buttons"
               onClick={connectWallet}
             >
-              
-              Connect Wallet
+        <i className="fa-solid fa-wallet header-buttons-ico"></i>
             </div>
           ) : (
             <Link to="/account" title="Wallet Address">
-              <div className="header-buttons">
-                {shortAddress(wallet.address)}
-              </div>
+              <div className="header-buttons">{shortAddress(wallet.address)}</div>
             </Link>
           )}
 
