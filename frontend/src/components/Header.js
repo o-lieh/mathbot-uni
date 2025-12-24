@@ -1,75 +1,94 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios';
-import IsAuthenticated from "../utils/IsAuthenticated.js";
-import logo from "../assets/images/greenlogo.svg"
-import API_URL from '../utils/api.js';
-import '../assets/scss/pages/_header.scss';
+import logo from "../assets/images/greenlogo.svg";
+import "../assets/scss/pages/_header.scss";
 
 function Header() {
+  const [wallet, setWallet] = useState(null);
 
-    const [data, setdata] = useState([])
-
-    useEffect(() => {
-        if (IsAuthenticated() !== "Not Authenticated") {
-            axios.get(`${API_URL}/api/accounts/` + IsAuthenticated()).then((res) => {
-                setdata(res.data)
-            })
+  // Try auto-connect if wallet already authorized
+  useEffect(() => {
+    const tryConnect = async () => {
+      if (window.mathbatWallet) {
+        try {
+          const data = await window.mathbatWallet.connect();
+          setWallet(data);
+        } catch {
+          setWallet(null);
         }
-    }, [])
+      }
+    };
 
-    function userData() {
-        return (
-            <>
-                <Link title={data.name} to="/account">
-                    <img src={data.avatar} className="account-user-img-little-header" alt={data.name} />
-                </Link>
+    tryConnect();
+  }, []);
 
-                <Link title="اعلانات" to="/notifications">
-                    <div className="header-buttons">
-                        <i class="fa-regular fa-bell header-buttons-ico"></i>
-                    </div>
-                </Link>
-            </>
-        )
+  const connectWallet = async () => {
+    if (!window.mathbatWallet) {
+      window.open(
+        "https://chrome.google.com/webstore/detail/your-wallet-id"
+      );
+      return;
     }
 
-    return (
-        <div className="header">
-            <div className="row">
+    try {
+      const data = await window.mathbatWallet.connect();
+      setWallet(data);
+    } catch {
+      alert("Wallet connection failed");
+    }
+  };
 
-                <div className="col-md-11 header-responsive header-icons-box">
-                    
-                    {IsAuthenticated() !== "Not Authenticated" ? userData() : (
-                        <Link to="/login">
-                            <div className="header-buttons header-buttons-login">       
-                                Login
-                            </div>
-                        </Link>
-                    )}
+  const shortAddress = (address) =>
+    `${address.slice(0, 6)}...${address.slice(-4)}`;
 
-                    
-                    
+  return (
+    <div className="header">
+      <div className="row">
 
-                    <Link title="home" to="/">
-                        <div className="header-buttons">
-                            <i className="fa-solid fa-house header-buttons-ico"></i>
-                        </div>
-                    </Link>
+        <div className="col-md-11 header-responsive header-icons-box">
 
-                </div>
-
-                <div className="col-md-1">
-                    <div className="logo-button">
-                        <Link to="/">
-                            <img className="logo-img" src={logo} alt="MATHBOT Logo" />
-                        </Link>
-                    </div>
-                </div>
-                
+          {/* WALLET BUTTON */}
+          {!wallet ? (
+            <div
+              className="header-buttons header-buttons-login"
+              onClick={connectWallet}
+            >
+              
+              Connect Wallet
             </div>
+          ) : (
+            <Link to="/account" title="Wallet Address">
+              <div className="header-buttons">
+                {shortAddress(wallet.address)}
+              </div>
+            </Link>
+          )}
+
+          {/* HOME BUTTON */}
+          <Link title="home" to="/">
+            <div className="header-buttons">
+              <i className="fa-solid fa-house header-buttons-ico"></i>
+            </div>
+          </Link>
+
         </div>
-    );
+
+        {/* LOGO */}
+        <div className="col-md-1">
+          <div className="logo-button">
+            <Link to="/">
+              <img
+                className="logo-img"
+                src={logo}
+                alt="MATHBOT Logo"
+              />
+            </Link>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
 }
 
 export default Header;
