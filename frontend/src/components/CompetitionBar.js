@@ -11,6 +11,14 @@ function CompetitionBar() {
   const [contests, setContests] = useState([]);
 
   useEffect(() => {
+
+	fetch("http://127.0.0.1:8000/api/contests/")
+      .then(res => res.json())
+      .then(data => {
+        setContests(data);
+      })
+      .catch(err => console.error("Error fetching contests:", err));
+  }, []);
     // --------- API Call ---------
     // Uncomment this section to fetch contests from your backend
     /*
@@ -28,7 +36,8 @@ function CompetitionBar() {
     */
 
     // --------- Test Data (for local testing without API) ---------
-    const testContests = [
+/*    
+const testContests = [
       {
         id: 1,
         title: "مسابقه برنامه نویسی",
@@ -48,6 +57,7 @@ function CompetitionBar() {
 
     setContests(testContests);
   }, []);
+*/
 
   return (
     <div className="competition-bar">

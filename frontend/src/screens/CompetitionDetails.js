@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import Header from "../components/Header.js";
 import Footer from "../components/Footer.js";
+import ContestRegisterModal from "../components/ContestRegisterModal.js";
 import "../assets/scss/pages/_competitionDetails.scss";
 
 function CompetitionDetails() {
@@ -10,137 +10,70 @@ function CompetitionDetails() {
     const [contest, setContest] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [openRegister, setOpenRegister] = useState(false);
 
-    // Download rules
+    useEffect(() => {
+        setLoading(true);
+        fetch(`http://127.0.0.1:8000/api/contests/${id}/`)
+            .then((res) => {
+                if (!res.ok) throw new Error("Contest not found");
+                return res.json();
+            })
+            .then((data) => {
+                setContest(data);
+                setError(null);
+            })
+            .catch(() => setError("Error loading contest"))
+            .finally(() => setLoading(false));
+    }, [id]);
+
     const handleDownloadRules = () => {
         if (!contest.rules) {
-            alert("فایل قوانین موجود نیست");
+            alert("Rules file not available");
             return;
         }
 
         const link = document.createElement("a");
-        link.href = contest.rules;  // backend link or test link
-        link.download = "";
+        link.href = contest.pdf_rules;
+        link.download = "Contest-Rules.pdf";
         link.click();
     };
 
-    useEffect(() => {
-        // ------------------ API Fetch ------------------
-        /*
-        const fetchContest = async () => {
-            try {
-                const response = await fetch(`https://api.example.com/contests/${id}`);
-                if (!response.ok) throw new Error("مسابقه یافت نشد");
-                const data = await response.json();
-                setContest(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchContest();
-        */
-
-        // ------------------ Test Data ------------------
-        const testContests = [
-            {
-                id: "1",
-                title: "Programming Contest",
-                description: "Solve fun programming challenges!",
-                location: "Online",
-                date: "2025-12-10",
-                time: "10:00 AM",
-                prize: "$500",
-                image: "https://via.placeholder.com/400x250.png?text=Programming+Contest",
-                rules: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-            },
-            {
-                id: "2",
-                title: "Graphic Design Contest",
-                description: "Create stunning visuals.",
-                location: "New York",
-                date: "2025-12-15",
-                time: "2:00 PM",
-                prize: "$300",
-                image: "https://via.placeholder.com/400x250.png?text=Design+Contest",
-                rules: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-            },
-            {
-                id: "3",
-                title: "Math Challenge",
-                description: "Test your math skills!",
-                location: "London",
-                date: "2025-12-20",
-                time: "11:00 AM",
-                prize: "$200",
-                image: "https://via.placeholder.com/400x250.png?text=Math+Contest",
-                rules: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-            },
-        ];
-
-        const foundContest = testContests.find(c => c.id === id);
-        if (foundContest) setContest(foundContest);
-        else setError("Contest not found");
-        setLoading(false);
-
-    }, [id]);
-
-    if (loading) {
-        return (
-            <div>
-                <Header />
-                <div className="container">
-                    <h2 className="mt-5">Loading...</h2>
-                </div>
-                <Footer />
-            </div>
-        );
-    }
-
-    if (error || !contest) {
-        return (
-            <div>
-                <Header />
-                <div className="container">
-                    <h2 className="mt-5">{error || "Contest not found"}</h2>
-                </div>
-                <Footer />
-            </div>
-        );
-    }
+    if (loading) return <p>Loading...</p>;
+    if (error || !contest) return <p>{error || "Contest not found"}</p>;
 
     return (
-        <div>
+        <>
             <Header />
-
-            <Helmet>
-                <title>{contest.title}</title>
-            </Helmet>
 
             <div className="competition-details-page section">
                 <div className="container">
-
                     <div className="details-grid">
-                        {/* Info box */}
                         <section className="info-box">
-                            <h3>Contest Details</h3>
+                            <h3>{contest.title}</h3>
                             <ul>
-                                <li><strong> {contest.location}</strong><i class="fas fa-map-marker-alt"></i></li>
-                                <li><strong> {contest.date}</strong><i class="fas fa-calendar-alt"></i></li>
-                                <li><strong> {contest.time} </strong><i class="fas fa-clock"></i></li>
-                                <li><strong> {contest.prize}</strong><i class="fas fa-trophy"></i></li>
+                                <li>
+                                    <strong>{contest.location}</strong><i className="fas fa-map-marker-alt colored-icon"></i>
+                                </li>
+                                <li>
+                                    <strong>{contest.date}</strong><i className="fas fa-calendar-alt colored-icon"></i>
+                                </li>
+                                <li>
+                                    <strong>{contest.time}</strong><i className="fas fa-clock colored-icon"></i>
+                                </li>
+                                <li>
+                                    <strong><i className="fab fa-ethereum colored-icon "></i> for winner : {contest.prize} </strong><i className="fas fa-trophy colored-icon"></i>
+                                </li>
+                                <li>
+                                    <strong><i className="fab fa-ethereum colored-icon "></i> Registration fee : {contest.registration_price}</strong><i className="fas fa-coins colored-icon"></i>
+                                </li>
                                 <li className="rules-download" onClick={handleDownloadRules}>
-                                    <strong></strong><i class="fas fa-scroll"></i>
+                                    <strong>Contest Rules (PDF)</strong><i className="fas fa-scroll colored-icon"></i>
                                 </li>
                             </ul>
                         </section>
 
-                        {/* Join box */}
                         <section className="join-box">
-                            
-
-                            {/* Competition Image */}
                             <div className="competition-image-wrapper">
                                 <img
                                     src={contest.image}
@@ -149,16 +82,31 @@ function CompetitionDetails() {
                                 />
                             </div>
 
-                            <button className="join-btn">Register</button>
+                            {/* 🔴 فقط این خط تغییر کرده: */}
+                            <button
+                                className="join-btn"
+                                onClick={() => setOpenRegister(true)}
+                            >
+                                {contest.registration_price > 0 
+                                    ? `Register (${contest.registration_price} ETH)`
+                                    : "Register for Free"
+                                }
+                            </button>
                         </section>
-
                     </div>
-
                 </div>
             </div>
 
             <Footer />
-        </div>
+
+            {/* Registration Modal */}
+            {openRegister && (
+                <ContestRegisterModal
+                    contestId={contest.id}
+                    onClose={() => setOpenRegister(false)}
+                />
+            )}
+        </>
     );
 }
 
