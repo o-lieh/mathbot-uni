@@ -1,27 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
+import { useWallet } from "../contexts/WalletContext.js";
+import "../assets/scss/_modal.scss";
 
-function WalletConnectButton({ onConnected }) {
-  const connectWallet = async () => {
-    if (!window.mathbatWallet) {
-      window.open(
-        "https://chrome.google.com/webstore/detail/your-wallet-id"
-      );
+function ContestRegisterModal({ contestId, onClose }) {
+  const { wallet, connectWallet } = useWallet();
+
+  const [teamName, setTeamName] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleRegister = async () => {
+    if (!teamName.trim()) {
+      alert("Please enter a team name");
       return;
     }
 
+    if (!wallet) {
+      connectWallet();
+      return;
+    }
+
+    setLoading(true);
     try {
-      const wallet = await window.mathbatWallet.connect();
-      onConnected(wallet);
+      // later: payment logic here
+      alert("Registered successfully!");
+      onClose();
     } catch (err) {
-      alert("Wallet connection failed");
+      console.error(err);
+      alert("Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <button onClick={connectWallet}>
-      اتصال کیف پول
-    </button>
+    <div className="modal-backdrop">
+      <div className="contest-modal">
+        <button className="close-btn" onClick={onClose}>×</button>
+
+        <h2>Contest Registration</h2>
+
+        <input
+          type="text"
+          placeholder="Team Name"
+          value={teamName}
+          onChange={(e) => setTeamName(e.target.value)}
+        />
+
+        <button
+          className="wallet-btn"
+          onClick={handleRegister}
+          disabled={loading}
+        >
+          {loading
+            ? "Processing..."
+            : wallet
+            ? "Pay & Register"
+            : "Connect Wallet"}
+        </button>
+
+        {wallet && (
+          <p className="wallet-ok">
+            Wallet connected: {wallet.address}
+          </p>
+        )}
+      </div>
+    </div>
   );
 }
 
-export default WalletConnectButton;
+export default ContestRegisterModal;
