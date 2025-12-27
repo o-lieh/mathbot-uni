@@ -9,7 +9,7 @@ function ContestLargeBoxIntroduction() {
             <div className="contest-homepage ">
                 <h2>
                     <div>INTERNATIONAL</div>
-                    <div>PROGRAMIN COMPETITION</div>
+                    <div>PROGRAMING COMPETITION</div>
                 </h2>
                 
                 <Link to="/soon">

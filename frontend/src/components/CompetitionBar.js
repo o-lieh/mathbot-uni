@@ -62,7 +62,7 @@ const testContests = [
   return (
     <div className="competition-bar">
       <div className="title">
-        <h2>Upcoming Contest</h2>
+        <h2>Upcoming Contests</h2>
       </div>
 
       <Swiper

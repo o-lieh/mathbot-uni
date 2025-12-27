@@ -1,31 +1,39 @@
+/* ---------- BACKDROP ---------- */
 .modal-backdrop {
   position: fixed;
-  inset: 0; /* top right bottom left = 0 */
-  background: rgba(0, 0, 0, 0.6)!important;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35)!important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 }
 
+
+/* ---------- MODAL ---------- */
 .contest-modal {
   background: #ffffff;
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: 12px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35)!important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   position: relative;
-  animation: scaleIn 0.2s ease-out;
-  
-    .h2 {
+  animation: scaleIn 0.25s ease-out;
   color: #111;
-  margin-bottom: 16px;
 
+  h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #111;
   }
 }
 
-/* animation */
+/* ---------- ANIMATION ---------- */
 @keyframes scaleIn {
   from {
     transform: scale(0.9);
@@ -37,44 +45,607 @@
   }
 }
 
+/* ---------- CLOSE BUTTON ---------- */
 .close-btn {
   position: absolute;
-  top: 12px;
-  right: 14px;
+  top: 14px;
+  right: 16px;
   font-size: 22px;
-  border: none;
   background: none;
+  border: none;
+  color: #444;
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-input {
+.close-btn:hover {
+  color: #000;
+}
+
+/* ---------- INPUT ---------- */
+.contest-modal input {
   width: 100%;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 11px 12px;
   margin-bottom: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.contest-modal input:focus {
+  outline: none;
+  border-color: #29a58d;
+  box-shadow: 0 0 0 2px rgba(41, 165, 141, 0.2);
+}
+
+/* ---------- BUTTON ---------- */
 .wallet-btn {
   width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 6px;
-  background: #4f46e5;
-  color: #fff;
+  padding: 13px;
+  border-radius: 8px;
+  background: #29a58d ;
+  color: #ffffff;
   border: none;
-  cursor: pointer;
   font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .wallet-btn:hover {
-  background: #4338ca;
+  background: #1f8a76;
 }
 
-.wallet-ok {
-  text-align: left;
-  margin-top: 10px;
-  font-size: 14px;
-  color: green;
+.wallet-btn:active {
+  transform: scale(0.98);
 }
+
+.wallet-btn:disabled {
+  background: #9fd4c9;
+  cursor: not-allowed;
+}
+
+/* ---------- STATUS TEXT ---------- */
+.status-text {
+  text-align: left;
+  direction: ltr;
+  margin: 10px 0;
+  font-size: 18px;
+  color: #1f8a76;
+}
+
+/* ---------- SUCCESS ---------- */
+.success-box {
+  margin-top: 20px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+
+  p {
+    font-size: 22px;
+    font-weight: 700;
+    color: #29a58d;
+    margin-bottom: 12px;
+  }
+
+  small {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #6b6b6b;
+  }
+}
+
+.code-box {
+  padding: 14px;
+  background: #29a58d;
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  user-select: all;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(41, 165, 141, 0.45);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.success-icon {
+  display: inline-block;
+  color: #29a58d; /* رنگ اصلی پروژه */
+  font-size: 28px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+/* ---------- PRICE TAG ---------- */
+.price-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+
+  &.free {
+    background: #d1f5e6;
+    color: #29a58d;
+  }
+
+  &.paid {
+    background: #f0fdf8;
+    color: #1f8a76;
+  }
+}
+
+/* ---------- TRANSACTION HASH / LINK ---------- */
+.tx-info,
+.tx-link,
+.contract-link {
+  font-size: 13px;
+  color: #1f8a76;
+  margin-top: 6px;
+  display: block;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tx-link:hover,
+.contract-link:hover {
+  color: #16624d;
+}
+
+/* ---------- PROCESSING STATE ---------- */
+.processing-state {
+  text-align: center;
+  margin-top: 16px;
+
+  .loader {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 12px;
+    border: 4px solid #d1f5e6;
+    border-top: 4px solid #29a58d;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- SUCCESS STATE ---------- */
+.success-state {
+  text-align: center;
+
+  .success-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .result-card {
+    background: #e6f9f1;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+
+    .code-block {
+      background: #29a58d;
+      color: #fff;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: all;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+      &:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 20px rgba(41, 165, 141, 0.45);
+      }
+
+      .copy-hint {
+        font-size: 11px;
+        color: #d1f5e6;
+        margin-left: 6px;
+      }
+    }
+  }
+}
+
+/* ---------- ERROR STATE ---------- */
+.error-state {
+  text-align: center;
+  color: #d92d2d;
+
+  .error-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .error-message {
+    margin-bottom: 12px;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+
+    button {
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+
+      &.retry-button {
+        background: #29a58d;
+        color: #fff;
+
+        &:hover { background: #1f8a76; }
+      }
+
+      &.cancel-button {
+        background: #f0f0f0;
+        color: #444;
+
+        &:hover { background: #d9d9d9; }
+      }
+    }
+  }
+
+  .faucet-card {
+    margin-top: 12px;
+    background: #fff4f4;
+    padding: 10px;
+    border-radius: 8px;
+
+    a {
+      color: #d92d2d;
+      text-decoration: underline;
+
+      &:hover { color: #a12020; }
+    }
+  }
+}
+
+/* ---------- DONE BUTTON ---------- */
+.done-button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 16px;
+  border-radius: 8px;
+  background: #29a58d;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+
+  &:hover { background: #1f8a76; }
+}
+/* =========================================================
+   ADDED STYLES FOR SMART-CONTRACT MODAL (NO OVERRIDES)
+   ========================================================= */
+
+/* ---------- PRICE DISPLAY ---------- */
+.price-display {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.price-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+
+  &.free {
+    background: #d1f5e6;
+    color: #1f8a76;
+  }
+
+  &.paid {
+    background: #f0fdf8;
+    color: #16624d;
+  }
+}
+
+.price-icon {
+  font-size: 16px;
+}
+
+.price-note {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* ---------- INPUT GROUP ---------- */
+.input-group {
+  margin-bottom: 14px;
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+  }
+}
+
+/* ---------- MAIN SUBMIT BUTTON ---------- */
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  background: #29a58d;
+  color: #fff;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif !important ;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.submit-button:hover {
+  background: #1f8a76;
+}
+
+.submit-button:active {
+  transform: scale(0.98);
+}
+
+/* ---------- PAYMENT INFO ---------- */
+.payment-info {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #444;
+
+  ul {
+    margin: 8px 0;
+    padding-left: 16px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  a {
+    color: #29a58d;
+    text-decoration: underline;
+    font-weight: 600;
+
+    &:hover {
+      color: #1f8a76;
+    }
+  }
+}
+
+/* ---------- PROCESSING STATE ---------- */
+.processing-state {
+  text-align: center;
+  padding: 20px 0;
+
+  .loader {
+    width: 42px;
+    height: 42px;
+    margin: 0 auto 14px;
+    border: 4px solid #d1f5e6;
+    border-top: 4px solid #29a58d;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- TRANSACTION INFO ---------- */
+.tx-info {
+  font-size: 12px;
+  margin-top: 8px;
+  color: #1f8a76;
+  word-break: break-all;
+}
+
+/* ---------- SUCCESS STATE ---------- */
+.success-state {
+  text-align: center;
+}
+
+.success-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.checkmark {
+  font-size: 26px;
+}
+
+.result-card {
+  background: #e6f9f1;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.code-block {
+  margin-top: 8px;
+  padding: 12px;
+  background: #29a58d;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: all;
+}
+
+.copy-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+/* ---------- TRANSACTION LINKS ---------- */
+.transaction-info {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.tx-links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 6px;
+
+  a {
+    color: #29a58d;
+    font-weight: 600;
+    text-decoration: underline;
+
+    &:hover {
+      color: #1f8a76;
+    }
+  }
+}
+
+.hash {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* ---------- ERROR STATE ---------- */
+.error-state {
+  text-align: center;
+}
+
+.error-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.error-icon {
+  font-size: 22px;
+}
+
+.error-message {
+  color: #d92d2d;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ---------- ACTION BUTTONS ---------- */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.retry-button {
+  background: #29a58d;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.retry-button:hover {
+  background: #1f8a76;
+}
+
+.cancel-button {
+  background: #e5e5e5;
+  color: #444;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cancel-button:hover {
+  background: #d4d4d4;
+}
+
+/* ---------- DONE BUTTON ---------- */
+.done-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #29a58d;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.done-button:hover {
+  background: #1f8a76;
+}
+/* ---------- COPY BUTTON ---------- */
+.copy-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #e6f9f1;
+  color: #1f8a76;
+  font-weight: 700;
+  border: 1px solid #29a58d;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.copy-button:hover {
+  background: #d1f5e6;
+}
+
+.copy-button:active {
+  transform: scale(0.98);
+}
+
+.copy-button.secondary {
+  background: #f0fdf8;
+}
+

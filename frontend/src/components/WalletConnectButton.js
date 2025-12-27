@@ -1,71 +1,27 @@
-import React, { useState } from "react";
-import { useWallet } from "../contexts/WalletContext.js";
-import "../assets/scss/_modal.scss";
+import React from "react";
 
-function ContestRegisterModal({ contestId, onClose }) {
-  const { wallet, connectWallet } = useWallet();
-
-  const [teamName, setTeamName] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleRegister = async () => {
-    if (!teamName.trim()) {
-      alert("Please enter a team name");
+function WalletConnectButton({ onConnected }) {
+  const connectWallet = async () => {
+    if (!window.mathbatWallet) {
+      window.open(
+        "https://chrome.google.com/webstore/detail/your-wallet-id"
+      );
       return;
     }
 
-    if (!wallet) {
-      connectWallet();
-      return;
-    }
-
-    setLoading(true);
     try {
-      // later: payment logic here
-      alert("Registered successfully!");
-      onClose();
+      const wallet = await window.mathbatWallet.connect();
+      onConnected(wallet);
     } catch (err) {
-      console.error(err);
-      alert("Registration failed");
-    } finally {
-      setLoading(false);
+      alert("Wallet connection failed");
     }
   };
 
   return (
-    <div className="modal-backdrop">
-      <div className="contest-modal">
-        <button className="close-btn" onClick={onClose}>×</button>
-
-        <h2>Contest Registration</h2>
-
-        <input
-          type="text"
-          placeholder="Team Name"
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
-        />
-
-        <button
-          className="wallet-btn"
-          onClick={handleRegister}
-          disabled={loading}
-        >
-          {loading
-            ? "Processing..."
-            : wallet
-            ? "Pay & Register"
-            : "Connect Wallet"}
-        </button>
-
-        {wallet && (
-          <p className="wallet-ok">
-            Wallet connected: {wallet.address}
-          </p>
-        )}
-      </div>
-    </div>
+    <button onClick={connectWallet}>
+      اتصال کیف پول
+    </button>
   );
 }
 
-export default ContestRegisterModal;
+export default WalletConnectButton;

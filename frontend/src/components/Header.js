@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/greenlogo.svg";
 import "../assets/scss/pages/_header.scss";
@@ -50,11 +50,10 @@ function Header() {
           {/* WALLET BUTTON */}
           {!wallet ? (
             <div
-              className="header-buttons header-buttons-login"
+              className="header-buttons"
               onClick={connectWallet}
             >
-              
-              Connect Wallet
+        <i className="fa-solid fa-wallet header-buttons-ico"></i>
             </div>
           ) : (
             <Link to="/account" title="Wallet Address">
