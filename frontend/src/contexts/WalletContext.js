@@ -1,17 +1,18 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-console.log("ContestRegisterModal rendered");
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const WalletContext = createContext(null);
 
 export const WalletProvider = ({ children }) => {
   const [wallet, setWallet] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Auto-connect if user already authorized
+  /* ---------- Auto connect (front-only) ---------- */
   useEffect(() => {
-    const tryConnect = async () => {
-      if (typeof window === "undefined") return;
-
-      if (!window.ethereum) return;
+    const autoConnect = async () => {
+      if (!window.ethereum) {
+        setLoading(false);
+        return;
+      }
 
       try {
         const accounts = await window.ethereum.request({
@@ -22,20 +23,19 @@ export const WalletProvider = ({ children }) => {
           setWallet({ address: accounts[0] });
         }
       } catch (err) {
-        console.error("Auto connect failed:", err);
+        console.error("Auto connect failed", err);
+      } finally {
+        setLoading(false);
       }
     };
 
-    tryConnect();
+    autoConnect();
   }, []);
 
-  // Connect wallet on button click
+  /* ---------- Connect wallet ---------- */
   const connectWallet = async () => {
-    if (typeof window === "undefined") return;
-
     if (!window.ethereum) {
-      alert("MetaMask is not installed");
-      window.open("https://metamask.io/download.html", "_blank");
+      window.open("https://metamask.io/download/", "_blank");
       return;
     }
 
@@ -48,31 +48,34 @@ export const WalletProvider = ({ children }) => {
         setWallet({ address: accounts[0] });
       }
     } catch (err) {
-      alert("Wallet connection failed");
-      console.error("Wallet connect error:", err);
+      console.error("User rejected wallet connection", err);
     }
   };
 
+  /* ---------- Disconnect (front-only) ---------- */
   const disconnectWallet = () => {
     setWallet(null);
   };
 
   return (
     <WalletContext.Provider
-      value={{ wallet, connectWallet, disconnectWallet }}
+      value={{
+        wallet,
+        loading,
+        connectWallet,
+        disconnectWallet,
+      }}
     >
       {children}
     </WalletContext.Provider>
   );
 };
 
-// Hook for components
+/* ---------- Hook ---------- */
 export const useWallet = () => {
   const context = useContext(WalletContext);
-
-  if (context === null) {
-    throw new Error("useWallet must be used within a WalletProvider");
+  if (!context) {
+    throw new Error("useWallet must be used within WalletProvider");
   }
-
   return context;
 };

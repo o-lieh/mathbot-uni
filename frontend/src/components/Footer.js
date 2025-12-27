@@ -24,8 +24,8 @@ function Footer() {
                         <div className="contact-links">
                             <a className="contact-icons-sidebar" href="http://instagram.com/themathbot"><i className="fab fa-instagram" /></a>
                             <a className="contact-icons-sidebar" href="http://t.me/math_20_bot_channel"><i className="fab fa-telegram" /></a>
-                            <a className="contact-icons-sidebar" href="http://github.com/hosseincodes/mathbot"><i className="fab fa-github" /></a>
-                            <a className="contact-icons-sidebar" href="http://github.com/hosseincodes/mathbot"><i className="fab fa-linkedin" /></a>
+                            <a className="contact-icons-sidebar" href="https://github.com/o-lieh/mathbot-uni"><i className="fab fa-github" /></a>
+                            <a className="contact-icons-sidebar" href="https://github.com/o-lieh/mathbot-uni"><i className="fab fa-linkedin" /></a>
                             
                             
                         </div>

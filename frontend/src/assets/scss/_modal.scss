@@ -1,80 +1,386 @@
-.modal-backdrop {
-  position: fixed;
-  inset: 0; /* top right bottom left = 0 */
-  background: rgba(0, 0, 0, 0.6)!important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
+/* فقط مدال سفید - تمیز و حرفه‌ای */
 .contest-modal {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 420px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35)!important;
-  position: relative;
-  animation: scaleIn 0.2s ease-out;
-  
-    .h2 {
-  color: #111;
-  margin-bottom: 16px;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
-  }
+    /* بستن */
+    .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #666;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        
+        &:hover {
+            color: #333;
+        }
+    }
+
+    /* عنوان */
+    h2 {
+        text-align: center;
+        margin: 0 0 20px 0;
+        color: #333;
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    /* نمایش قیمت */
+    .price-display {
+        margin-bottom: 25px;
+        text-align: center;
+        
+        .price-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            
+            &.free {
+                background: #e8f5e9;
+                color: #2e7d32;
+            }
+            
+            &.paid {
+                background: #e3f2fd;
+                color: #1565c0;
+            }
+            
+            .price-icon {
+                font-size: 18px;
+            }
+            
+            .price-text {
+                font-size: 16px;
+            }
+            
+            .price-note {
+                font-size: 12px;
+                opacity: 0.8;
+            }
+        }
+    }
+
+    /* ورودی تیم */
+    .input-group {
+        margin-bottom: 25px;
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #333;
+            background: #f9f9f9;
+            
+            &:focus {
+                outline: none;
+                border-color: #29a58d;
+                background: white;
+            }
+            
+            &::placeholder {
+                color: #999;
+            }
+        }
+    }
+
+    /* دکمه ثبت‌نام */
+    .submit-button {
+        width: 100%;
+        background: #29a58d;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        
+        &:hover {
+            background: #238f7a;
+        }
+    }
+
+    /* اطلاعات پرداخت */
+    .payment-info {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #555;
+        
+        p {
+            margin: 0 0 10px 0;
+            font-weight: 600;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+            
+            li {
+                padding: 4px 0;
+            }
+        }
+        
+        .faucet-link {
+            a {
+                color: #29a58d;
+                text-decoration: none;
+                
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    /* خطای پیش‌نمایش */
+    .error-preview {
+        color: #d32f2f;
+        font-size: 14px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    /* حالت پردازش */
+    .processing-state {
+        text-align: center;
+        padding: 30px 0;
+        
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #29a58d;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        h3 {
+            color: #333;
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+        
+        p {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+        }
+    }
+
+    /* حالت موفقیت */
+    .success-state {
+        text-align: center;
+        
+        .success-header {
+            margin-bottom: 20px;
+            
+            .checkmark {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                background: #4CAF50;
+                color: white;
+                border-radius: 50%;
+                line-height: 50px;
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+            
+            h3 {
+                color: #333;
+                margin: 0;
+                font-size: 18px;
+            }
+        }
+        
+        .result-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            
+            h4 {
+                margin: 0 0 10px 0;
+                color: #333;
+                font-size: 15px;
+            }
+            
+            .code-block {
+                background: white;
+                padding: 12px;
+                border-radius: 6px;
+                border: 1px solid #ddd;
+                cursor: pointer;
+                
+                &:hover {
+                    border-color: #29a58d;
+                }
+                
+                code {
+                    font-family: monospace;
+                    font-size: 15px;
+                    color: #333;
+                    display: block;
+                    margin-bottom: 5px;
+                }
+                
+                .copy-hint {
+                    color: #29a58d;
+                    font-size: 12px;
+                }
+            }
+        }
+        
+        .transaction-info {
+            background: #e8f5e9;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            
+            h4 {
+                margin: 0 0 8px 0;
+                color: #2e7d32;
+                font-size: 14px;
+            }
+            
+            .tx-link {
+                color: #29a58d;
+                text-decoration: none;
+                font-size: 13px;
+                
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        
+        .done-button {
+            width: 100%;
+            background: #29a58d;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            
+            &:hover {
+                background: #238f7a;
+            }
+        }
+    }
+
+    /* حالت خطا */
+    .error-state {
+        text-align: center;
+        
+        .error-header {
+            margin-bottom: 15px;
+            
+            .error-icon {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                background: #f44336;
+                color: white;
+                border-radius: 50%;
+                line-height: 50px;
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+            
+            h3 {
+                color: #333;
+                margin: 0;
+                font-size: 18px;
+            }
+        }
+        
+        .error-message {
+            background: #ffebee;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            
+            p {
+                margin: 0;
+                color: #c62828;
+                font-size: 14px;
+            }
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            
+            .retry-button {
+                flex: 2;
+                background: #29a58d;
+                color: white;
+                border: none;
+                padding: 12px;
+                border-radius: 6px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            
+            .cancel-button {
+                flex: 1;
+                background: #e0e0e0;
+                color: #666;
+                border: none;
+                padding: 12px;
+                border-radius: 6px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+        }
+    }
 }
 
-/* animation */
-@keyframes scaleIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  font-size: 22px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.wallet-btn {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 6px;
-  background: #4f46e5;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.wallet-btn:hover {
-  background: #4338ca;
-}
-
-.wallet-ok {
-  text-align: left;
-  margin-top: 10px;
-  font-size: 14px;
-  color: green;
+@media (max-width: 500px) {
+    .contest-modal {
+        padding: 20px;
+        width: 95%;
+    }
 }

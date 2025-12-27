@@ -17,29 +17,28 @@ import { WalletProvider } from './contexts/WalletContext.js';
 
 class Router extends Component {
   render() {
-
-    return (
+        return (
     <WalletProvider>
-      <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} exact />
-            <Route path="/about" element={<About />} exact />
-            <Route path="/login" element={<Login />} exact />
-            <Route path="/register" element={<Register />} exact />
-            <Route path="/account" element={<Account />} exact />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Home />} exact />
+                    <Route path="/about" element={<About />} exact />
+                    <Route path="/login" element={<Login />} exact />
+                    <Route path="/register" element={<Register />} exact />
+                    <Route path="/account" element={<Account />} exact />
             <Route path="/search" element={<Search />} exact />
-            <Route path="/notifications" element={<Notifications />} exact />
-            <Route path="/users/:username" element={<Users />} exact />
+                    <Route path="/notifications" element={<Notifications />} exact />
+                    <Route path="/users/:username" element={<Users />} exact />
             <Route path="/contests/:id" element={<CompetitionDetails />} exact />
             <Route path="/contests/:id" element={<Contest />} exact />
             {/* Catch-all route for 404 */}
             <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+                </Routes>
         
-      </BrowserRouter>
+            </BrowserRouter>
       </WalletProvider>
-    );
-  }
+        );
+    }
 }
 
 export default Router;
