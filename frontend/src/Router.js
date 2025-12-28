@@ -17,6 +17,7 @@ import { WalletProvider } from './contexts/WalletContext.js';
 
 class Router extends Component {
   render() {
+
     return (
     <WalletProvider>
       <BrowserRouter>
