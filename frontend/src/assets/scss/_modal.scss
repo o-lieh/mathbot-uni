@@ -1,31 +1,37 @@
+/* ---------- BACKDROP ---------- */
 .modal-backdrop {
   position: fixed;
-  inset: 0; /* top right bottom left = 0 */
-  background: rgba(0, 0, 0, 0.6)!important;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 }
 
+/* ---------- MODAL ---------- */
 .contest-modal {
   background: #ffffff;
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: 12px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35)!important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   position: relative;
-  animation: scaleIn 0.2s ease-out;
-  
-    .h2 {
+  animation: scaleIn 0.25s ease-out;
   color: #111;
-  margin-bottom: 16px;
 
+  h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 1.9rem;
+    font-weight: 600;
   }
 }
 
-/* animation */
+/* ---------- ANIMATION ---------- */
 @keyframes scaleIn {
   from {
     transform: scale(0.9);
@@ -37,44 +43,302 @@
   }
 }
 
-.close-btn {
+/* ---------- CLOSE BUTTON ---------- */
+.close-btn,
+.close-modal {
   position: absolute;
-  top: 12px;
-  right: 14px;
+  top: 14px;
+  right: 16px;
   font-size: 22px;
-  border: none;
   background: none;
-  cursor: pointer;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.wallet-btn {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 6px;
-  background: #4f46e5;
-  color: #fff;
   border: none;
+  color: #444;
   cursor: pointer;
-  font-size: 16px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #000;
+  }
 }
 
-.wallet-btn:hover {
-  background: #4338ca;
-}
-
-.wallet-ok {
-  text-align: left;
-  margin-top: 10px;
+/* ---------- INPUT ---------- */
+.contest-modal input {
+  width: 100%;
+  padding: 11px 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
   font-size: 14px;
-  color: green;
+
+  &:focus {
+    outline: none;
+    border-color: #29a58d;
+    box-shadow: 0 0 0 2px rgba(41, 165, 141, 0.2);
+  }
+}
+
+/* ---------- MAIN BUTTON ---------- */
+.wallet-btn,
+.submit-button,
+.done-button,
+.retry-button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+/* ---------- PRIMARY ---------- */
+.wallet-btn,
+.submit-button {
+  font-family: Arial, Helvetica, sans-serif !important;
+  background: #29a58d;
+  color: #fff;
+
+  &:hover {
+    background: #1f8a76;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    background: #9fd4c9;
+    cursor: not-allowed;
+  }
+}
+
+/* ---------- DONE / RETRY ---------- */
+.done-button {
+  background: #16a34a;
+  color: #fff;
+  margin-top: 12px;
+}
+
+.retry-button {
+  background: #f97316;
+  color: #fff;
+}
+
+/* ---------- PROCESSING ---------- */
+.processing-state {
+  text-align: center;
+
+  p {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}
+
+.loader {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 4px solid #e5e7eb;
+  border-top-color: #29a58d;
+  margin: 0 auto 14px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- SUCCESS STATE ---------- */
+.success-state {
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.success-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.checkmark {
+  font-size: 32px;
+  color: #22c55e;
+}
+
+/* ---------- ERROR STATE ---------- */
+.error-state {
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.error-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.error-icon {
+  font-size: 30px;
+  color: #ef4444;
+}
+
+.error-message {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  padding: 12px;
+  border-radius: 8px;
+  color: #991b1b;
+  margin-bottom: 12px;
+}
+
+/* ---------- RESULT CARD ---------- */
+.result-card {
+  background: #f0fdf9;
+  border: 1px solid #99e6d6;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 14px;
+}
+
+.code-block {
+  margin-top: 10px;
+  padding: 12px;
+  background: #29a58d;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: all;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(41, 165, 141, 0.45);
+  }
+}
+
+.copy-hint {
+  display: block;
+  font-size: 12px;
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
+/* ---------- COPY BUTTON ---------- */
+.copy-button {
+  font-family: Arial, Helvetica, sans-serif !important;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #ecfeff;
+  border: 1px dashed #29a58d;
+  color: #0f766e;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #ccfbf1;
+  }
+
+  &.secondary {
+    border-color: #6366f1;
+    color: #4338ca;
+  }
+}
+
+/* ---------- FADE IN ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ---------- MESSAGE BOX ---------- */
+.message-box {
+  text-align: center;
+  padding: 18px;
+  border-radius: 10px;
+  animation: fadeIn 0.3s ease-in;
+
+  h3 {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .message-icon {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  &.success {
+    background: #ecfdf5;
+    border: 1px solid #86efac;
+    color: #15803d;
+
+    .message-icon {
+      color: #22c55e;
+    }
+  }
+
+  &.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+
+    .message-icon {
+      color: #ef4444;
+    }
+  }
+
+  &.info {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+
+    .message-icon {
+      color: #3b82f6;
+    }
+  }
+}
+
+/* ---------- COPY BUTTON ---------- */
+.copy-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #ecfeff;
+  border: 1px dashed #29a58d;
+  color: #0f766e;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #ccfbf1;
+  }
+
+  &.secondary {
+    border-color: #6366f1;
+    color: #4338ca;
+  }
 }

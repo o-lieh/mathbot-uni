@@ -9,14 +9,23 @@ function ContestLargeBoxIntroduction() {
             <div className="contest-homepage ">
                 <h2>
                     <div>INTERNATIONAL</div>
-                    <div>PROGRAMIN COMPETITION</div>
+                    <div>PROGRAMING COMPETITION</div>
                 </h2>
                 
-                <Link to="/soon">
-                    <button className="contest-register-button">
-                        Let's go...!
-                    </button>
-                </Link>
+                
+                   <button className="contest-register-button"
+  onClick={() => {
+    const el = document.getElementById("target-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }}
+>
+Let's go...!
+</button>
+
+                    
+                
             </div>
         </div>
     );    

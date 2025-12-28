@@ -1,68 +1,178 @@
-import React, { useState } from "react";
-import WalletConnectButton from "./WalletConnectButton.js";
-import { payWithWallet } from "../services/paymentService.js";
+import React, { useState, useEffect } from "react";
+import { useWallet } from "../contexts/WalletContext.js";
+import { payForContest } from "../services/paymentService.js";
+import "../assets/scss/_modal.scss";
 
 function ContestRegisterModal({ contestId, onClose }) {
+  const { wallet, connectWallet } = useWallet();
+
   const [teamName, setTeamName] = useState("");
-  const [wallet, setWallet] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [contestPrice, setContestPrice] = useState(0);
+  const [status, setStatus] = useState("idle"); // idle | processing | success | error
+  const [error, setError] = useState("");
+  const [code, setCode] = useState("");
+  const [txHash, setTxHash] = useState("");
 
-  const handlePayment = async () => {
-    if (!teamName.trim()) {
-      alert("*Team name(minimum 3 characters");
-      return;
-    }
-
-    if (!wallet) {
-      alert("Please connect your wallet first");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      await payWithWallet({
-        contestId,
-        teamName,
-        wallet
-      });
-
-      alert("Payment successful! Registration completed");
-      onClose();
-    } catch (err) {
-      alert(err.message);
-    } finally {
-      setLoading(false);
+  /* ---------- ERROR MAPPER ---------- */
+  const getErrorMessage = (type) => {
+    switch (type) {
+      case "NO_WALLET":
+        return "MetaMask is not installed.";
+      case "REJECTED":
+        return "Transaction was rejected.";
+      case "INSUFFICIENT_FUNDS":
+        return "Insufficient balance.";
+      case "WRONG_NETWORK":
+        return "Please switch to Sepolia network.";
+      case "CONTRACT_ERROR":
+        return "Transaction failed on-chain.";
+      default:
+        return "Something went wrong. Try again.";
     }
   };
 
-  return (
-    <div className="modal-backdrop">
-      <div className="modal">
+  /* ---------- LOAD CONTEST ---------- */
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/api/contests/${contestId}/`)
+      .then((r) => r.json())
+      .then((d) => setContestPrice(Number(d.registration_price) || 0))
+      .catch(() => setContestPrice(0));
+  }, [contestId]);
 
+  /* ---------- SUBMIT ---------- */
+  const handleSubmit = async () => {
+    if (!teamName.trim()) return alert("Enter team name");
+    if (!wallet) return connectWallet();
+
+    contestPrice === 0
+      ? handleFreeRegistration()
+      : handlePaidRegistration();
+  };
+
+  /* ---------- FREE ---------- */
+  const handleFreeRegistration = async () => {
+    try {
+      setStatus("processing");
+
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/contests/${contestId}/register-free/`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            wallet_address: wallet.address,
+            team_name: teamName,
+          }),
+        }
+      );
+
+      const data = await res.json();
+      setCode(data.unique_code || `FREE-${Date.now()}`);
+      setStatus("success");
+    } catch {
+      setError("Free registration failed");
+      setStatus("error");
+    }
+  };
+
+  /* ---------- PAID ---------- */
+  const handlePaidRegistration = async () => {
+    try {
+      setStatus("processing");
+      setError("");
+
+      const { txHash, receiptHash } = await payForContest({
+        contestId,
+        priceEth: contestPrice,
+      });
+
+      setTxHash(txHash);
+      setCode(`PAID-${receiptHash.slice(2, 10).toUpperCase()}`);
+      setStatus("success");
+    } catch (err) {
+      setError(getErrorMessage(err.type));
+      setStatus("error");
+    }
+  };
+
+  /* ---------- UI ---------- */
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="contest-modal" onClick={(e) => e.stopPropagation()}>
         <button className="close-btn" onClick={onClose}>×</button>
 
-        <h2>Contest Registration</h2>
+        {/* ---------- IDLE ---------- */}
+        {status === "idle" && (
+          <>
+            <h2>Contest Registration</h2>
 
-        <input
-          type="text"
-          placeholder="Team Name"
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
-        />
+            <input
+              placeholder="Team name"
+              value={teamName}
+              onChange={(e) => setTeamName(e.target.value)}
+            />
 
-        {!wallet ? (
-          <WalletConnectButton onConnected={setWallet} />
-        ) : (
-          <p className="wallet-ok">
-            Wallet connected: {wallet.address}
-          </p>
+            <button className="wallet-btn" onClick={handleSubmit}>
+              {!wallet
+                ? "Connect Wallet"
+                : contestPrice === 0
+                ? "Register for Free"
+                : `Pay ${contestPrice} ETH`}
+            </button>
+          </>
         )}
 
-        <button disabled={loading} onClick={handlePayment}>
-          Pay with Wallet
-        </button>
+        {/* ---------- PROCESSING ---------- */}
+        {status === "processing" && (
+          <div className="message-box info">
+            <span className="message-icon">⏳</span>
+            <p>Processing transaction...</p>
+          </div>
+        )}
 
+        {/* ---------- SUCCESS ---------- */}
+        {status === "success" && (
+          <div className="message-box success">
+            <span className="message-icon">✔</span>
+            <h3>Registration Successful</h3>
+
+            <button
+              className="copy-button"
+              onClick={() => navigator.clipboard.writeText(code)}
+            >
+              📋 Click to copy registration code
+            </button>
+
+            {txHash && (
+              <button
+                className="copy-button secondary"
+                onClick={() => navigator.clipboard.writeText(txHash)}
+              >
+                📋 Click to copy transaction hash
+              </button>
+            )}
+
+            <button className="done-button" onClick={onClose}>
+              Done
+            </button>
+          </div>
+        )}
+
+        {/* ---------- ERROR ---------- */}
+        {status === "error" && (
+          <div className="message-box error">
+            <span className="message-icon">✖</span>
+            <h3>Registration Failed</h3>
+            <p>{error}</p>
+
+            <button
+              className="retry-button"
+              onClick={() => setStatus("idle")}
+            >
+              Try Again
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
