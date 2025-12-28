@@ -56,11 +56,11 @@ function Header() {
         <i className="fa-solid fa-wallet header-buttons-ico"></i>
             </div>
           ) : (
-            <Link to="/account" title="Wallet Address">
+            
               <div className="header-buttons">
                 {shortAddress(wallet.address)}
               </div>
-            </Link>
+            
           )}
 
           {/* HOME BUTTON */}

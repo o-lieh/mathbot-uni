@@ -60,7 +60,7 @@ const testContests = [
 */
 
   return (
-    <div className="competition-bar">
+    <div className="competition-bar" id="target-section">
       <div className="title">
         <h2>Upcoming Contests</h2>
       </div>

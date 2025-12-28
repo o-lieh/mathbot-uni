@@ -1,9 +1,8 @@
-
 /* ---------- BACKDROP ---------- */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35)!important;
+  background: rgba(0, 0, 0, 0.35) !important;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   display: flex;
@@ -11,7 +10,6 @@
   align-items: center;
   z-index: 9999;
 }
-
 
 /* ---------- MODAL ---------- */
 .contest-modal {
@@ -30,7 +28,6 @@
     margin-bottom: 18px;
     font-size: 1.9rem;
     font-weight: 600;
-    color: #111;
   }
 }
 
@@ -47,7 +44,8 @@
 }
 
 /* ---------- CLOSE BUTTON ---------- */
-.close-btn {
+.close-btn,
+.close-modal {
   position: absolute;
   top: 14px;
   right: 16px;
@@ -57,10 +55,10 @@
   color: #444;
   cursor: pointer;
   transition: color 0.2s ease;
-}
 
-.close-btn:hover {
-  color: #000;
+  &:hover {
+    color: #000;
+  }
 }
 
 /* ---------- INPUT ---------- */
@@ -71,22 +69,22 @@
   border-radius: 8px;
   border: 1px solid #d1d5db;
   font-size: 14px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #29a58d;
+    box-shadow: 0 0 0 2px rgba(41, 165, 141, 0.2);
+  }
 }
 
-.contest-modal input:focus {
-  outline: none;
-  border-color: #29a58d;
-  box-shadow: 0 0 0 2px rgba(41, 165, 141, 0.2);
-}
-
-/* ---------- BUTTON ---------- */
-.wallet-btn {
+/* ---------- MAIN BUTTON ---------- */
+.wallet-btn,
+.submit-button,
+.done-button,
+.retry-button {
   width: 100%;
   padding: 13px;
   border-radius: 8px;
-  background: #29a58d ;
-  color: #ffffff;
   border: none;
   font-size: 16px;
   font-weight: 600;
@@ -94,57 +92,129 @@
   transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.wallet-btn:hover {
-  background: #1f8a76;
+/* ---------- PRIMARY ---------- */
+.wallet-btn,
+.submit-button {
+  font-family: Arial, Helvetica, sans-serif !important;
+  background: #29a58d;
+  color: #fff;
+
+  &:hover {
+    background: #1f8a76;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    background: #9fd4c9;
+    cursor: not-allowed;
+  }
 }
 
-.wallet-btn:active {
-  transform: scale(0.98);
+/* ---------- DONE / RETRY ---------- */
+.done-button {
+  background: #16a34a;
+  color: #fff;
+  margin-top: 12px;
 }
 
-.wallet-btn:disabled {
-  background: #9fd4c9;
-  cursor: not-allowed;
+.retry-button {
+  background: #f97316;
+  color: #fff;
 }
 
-/* ---------- STATUS TEXT ---------- */
-.status-text {
-  text-align: left;
-  direction: ltr;
-  margin: 10px 0;
-  font-size: 18px;
-  color: #1f8a76;
-}
-
-/* ---------- SUCCESS ---------- */
-.success-box {
-  margin-top: 20px;
+/* ---------- PROCESSING ---------- */
+.processing-state {
   text-align: center;
-  animation: fadeIn 0.3s ease-in;
 
   p {
-    font-size: 22px;
-    font-weight: 700;
-    color: #29a58d;
-    margin-bottom: 12px;
-  }
-
-  small {
-    display: block;
-    margin-top: 8px;
-    font-size: 13px;
-    color: #6b6b6b;
+    font-size: 16px;
+    margin-top: 10px;
   }
 }
 
-.code-box {
-  padding: 14px;
-  background: #29a58d;
-  color: #ffffff;
+.loader {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 4px solid #e5e7eb;
+  border-top-color: #29a58d;
+  margin: 0 auto 14px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- SUCCESS STATE ---------- */
+.success-state {
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.success-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.checkmark {
+  font-size: 32px;
+  color: #22c55e;
+}
+
+/* ---------- ERROR STATE ---------- */
+.error-state {
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.error-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.error-icon {
+  font-size: 30px;
+  color: #ef4444;
+}
+
+.error-message {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  padding: 12px;
   border-radius: 8px;
-  font-size: 18px;
+  color: #991b1b;
+  margin-bottom: 12px;
+}
+
+/* ---------- RESULT CARD ---------- */
+.result-card {
+  background: #f0fdf9;
+  border: 1px solid #99e6d6;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 14px;
+}
+
+.code-block {
+  margin-top: 10px;
+  padding: 12px;
+  background: #29a58d;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: bold;
-  letter-spacing: 1px;
   cursor: pointer;
   user-select: all;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -155,6 +225,37 @@
   }
 }
 
+.copy-hint {
+  display: block;
+  font-size: 12px;
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
+/* ---------- COPY BUTTON ---------- */
+.copy-button {
+  font-family: Arial, Helvetica, sans-serif !important;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #ecfeff;
+  border: 1px dashed #29a58d;
+  color: #0f766e;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #ccfbf1;
+  }
+
+  &.secondary {
+    border-color: #6366f1;
+    color: #4338ca;
+  }
+}
+
+/* ---------- FADE IN ---------- */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -165,876 +266,79 @@
     transform: translateY(0);
   }
 }
-
-.success-icon {
-  display: inline-block;
-  color: #29a58d; /* رنگ اصلی پروژه */
-  font-size: 28px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-/* ---------- PRICE TAG ---------- */
-.price-tag {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 16px;
-
-  &.free {
-    background: #d1f5e6;
-    color: #29a58d;
-  }
-
-  &.paid {
-    background: #f0fdf8;
-    color: #1f8a76;
-  }
-}
-
-/* ---------- TRANSACTION HASH / LINK ---------- */
-.tx-info,
-.tx-link,
-.contract-link {
-  font-size: 13px;
-  color: #1f8a76;
-  margin-top: 6px;
-  display: block;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.tx-link:hover,
-.contract-link:hover {
-  color: #16624d;
-}
-
-/* ---------- PROCESSING STATE ---------- */
-.processing-state {
+/* ---------- MESSAGE BOX ---------- */
+.message-box {
   text-align: center;
-  margin-top: 16px;
-
-  .loader {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto 12px;
-    border: 4px solid #d1f5e6;
-    border-top: 4px solid #29a58d;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* ---------- SUCCESS STATE ---------- */
-.success-state {
-  text-align: center;
-
-  .success-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  .result-card {
-    background: #e6f9f1;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 12px;
-
-    .code-block {
-      background: #29a58d;
-      color: #fff;
-      padding: 10px;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-      user-select: all;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-
-      &:hover {
-        transform: scale(1.03);
-        box-shadow: 0 6px 20px rgba(41, 165, 141, 0.45);
-      }
-
-      .copy-hint {
-        font-size: 11px;
-        color: #d1f5e6;
-        margin-left: 6px;
-      }
-    }
-  }
-}
-
-/* ---------- ERROR STATE ---------- */
-.error-state {
-  text-align: center;
-  color: #d92d2d;
-
-  .error-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-
-  .error-message {
-    margin-bottom: 12px;
-  }
-
-  .action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 12px;
-
-    button {
-      padding: 10px 14px;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-
-      &.retry-button {
-        background: #29a58d;
-        color: #fff;
-
-        &:hover { background: #1f8a76; }
-      }
-
-      &.cancel-button {
-        background: #f0f0f0;
-        color: #444;
-
-        &:hover { background: #d9d9d9; }
-      }
-    }
-  }
-
-  .faucet-card {
-    margin-top: 12px;
-    background: #fff4f4;
-    padding: 10px;
-    border-radius: 8px;
-
-    a {
-      color: #d92d2d;
-      text-decoration: underline;
-
-      &:hover { color: #a12020; }
-    }
-  }
-}
-
-/* ---------- DONE BUTTON ---------- */
-.done-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 16px;
-  border-radius: 8px;
-  background: #29a58d;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: background 0.2s ease;
-
-  &:hover { background: #1f8a76; }
-}
-/* =========================================================
-   ADDED STYLES FOR SMART-CONTRACT MODAL (NO OVERRIDES)
-   ========================================================= */
-
-/* ---------- PRICE DISPLAY ---------- */
-.price-display {
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.price-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
+  padding: 18px;
   border-radius: 10px;
-  font-weight: 700;
-  font-size: 14px;
+  animation: fadeIn 0.3s ease-in;
 
-  &.free {
-    background: #d1f5e6;
-    color: #1f8a76;
+  h3 {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 700;
   }
 
-  &.paid {
-    background: #f0fdf8;
-    color: #16624d;
+  p {
+    font-size: 15px;
+    margin-bottom: 12px;
   }
-}
 
-.price-icon {
-  font-size: 16px;
-}
-
-.price-note {
-  font-size: 11px;
-  opacity: 0.7;
-}
-
-/* ---------- INPUT GROUP ---------- */
-.input-group {
-  margin-bottom: 14px;
-
-  label {
+  .message-icon {
+    font-size: 36px;
     display: block;
-    font-size: 13px;
-    font-weight: 600;
     margin-bottom: 6px;
-    color: #444;
-  }
-}
-
-/* ---------- MAIN SUBMIT BUTTON ---------- */
-.submit-button {
-  width: 100%;
-  padding: 14px;
-  border-radius: 8px;
-  background: #29a58d;
-  color: #fff;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif !important ;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
-}
-
-.submit-button:hover {
-  background: #1f8a76;
-}
-
-.submit-button:active {
-  transform: scale(0.98);
-}
-
-/* ---------- PAYMENT INFO ---------- */
-.payment-info {
-  margin-top: 14px;
-  font-size: 13px;
-  color: #444;
-
-  ul {
-    margin: 8px 0;
-    padding-left: 16px;
   }
 
-  li {
-    margin-bottom: 4px;
+  &.success {
+    background: #ecfdf5;
+    border: 1px solid #86efac;
+    color: #15803d;
+
+    .message-icon {
+      color: #22c55e;
+    }
   }
 
-  a {
-    color: #29a58d;
-    text-decoration: underline;
-    font-weight: 600;
+  &.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
 
-    &:hover {
-      color: #1f8a76;
+    .message-icon {
+      color: #ef4444;
+    }
+  }
+
+  &.info {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+
+    .message-icon {
+      color: #3b82f6;
     }
   }
 }
 
-/* ---------- PROCESSING STATE ---------- */
-.processing-state {
-  text-align: center;
-  padding: 20px 0;
-
-  .loader {
-    width: 42px;
-    height: 42px;
-    margin: 0 auto 14px;
-    border: 4px solid #d1f5e6;
-    border-top: 4px solid #29a58d;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ---------- TRANSACTION INFO ---------- */
-.tx-info {
-  font-size: 12px;
-  margin-top: 8px;
-  color: #1f8a76;
-  word-break: break-all;
-}
-
-/* ---------- SUCCESS STATE ---------- */
-.success-state {
-  text-align: center;
-}
-
-.success-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.checkmark {
-  font-size: 26px;
-}
-
-.result-card {
-  background: #e6f9f1;
-  padding: 14px;
-  border-radius: 10px;
-  margin-bottom: 12px;
-}
-
-.code-block {
-  margin-top: 8px;
-  padding: 12px;
-  background: #29a58d;
-  color: #fff;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-  user-select: all;
-}
-
-.copy-hint {
-  display: block;
-  margin-top: 6px;
-  font-size: 11px;
-  opacity: 0.85;
-}
-
-/* ---------- TRANSACTION LINKS ---------- */
-.transaction-info {
-  margin-top: 12px;
-  font-size: 13px;
-}
-
-.tx-links {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 6px;
-
-  a {
-    color: #29a58d;
-    font-weight: 600;
-    text-decoration: underline;
-
-    &:hover {
-      color: #1f8a76;
-    }
-  }
-}
-
-.hash {
-  font-size: 11px;
-  opacity: 0.7;
-}
-
-/* ---------- ERROR STATE ---------- */
-.error-state {
-  text-align: center;
-}
-
-.error-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.error-icon {
-  font-size: 22px;
-}
-
-.error-message {
-  color: #d92d2d;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-/* ---------- ACTION BUTTONS ---------- */
-.action-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.retry-button {
-  background: #29a58d;
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.retry-button:hover {
-  background: #1f8a76;
-}
-
-.cancel-button {
-  background: #e5e5e5;
-  color: #444;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.cancel-button:hover {
-  background: #d4d4d4;
-}
-
-/* ---------- DONE BUTTON ---------- */
-.done-button {
-  width: 100%;
-  margin-top: 14px;
-  padding: 14px;
-  border-radius: 8px;
-  background: #29a58d;
-  color: #fff;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-}
-
-.done-button:hover {
-  background: #1f8a76;
-}
 /* ---------- COPY BUTTON ---------- */
 .copy-button {
   width: 100%;
   margin-top: 10px;
-  padding: 12px;
+  padding: 10px;
   border-radius: 8px;
-  background: #e6f9f1;
-  color: #1f8a76;
-  font-weight: 700;
-  border: 1px solid #29a58d;
+  background: #ecfeff;
+  border: 1px dashed #29a58d;
+  color: #0f766e;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background: #ccfbf1;
+  }
+
+  &.secondary {
+    border-color: #6366f1;
+    color: #4338ca;
+  }
 }
-
-.copy-button:hover {
-  background: #d1f5e6;
-}
-
-.copy-button:active {
-  transform: scale(0.98);
-}
-
-.copy-button.secondary {
-  background: #f0fdf8;
-}
-
-=======
-/* فقط مدال سفید - تمیز و حرفه‌ای */
-.contest-modal {
-    background: white;
-    border-radius: 12px;
-    padding: 30px;
-    width: 90%;
-    max-width: 450px;
-    position: relative;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
-    /* بستن */
-    .close-modal {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: none;
-        border: none;
-        font-size: 24px;
-        color: #666;
-        cursor: pointer;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-        text-align: center;
-        
-        &:hover {
-            color: #333;
-        }
-    }
-
-    /* عنوان */
-    h2 {
-        text-align: center;
-        margin: 0 0 20px 0;
-        color: #333;
-        font-size: 22px;
-        font-weight: 600;
-    }
-
-    /* نمایش قیمت */
-    .price-display {
-        margin-bottom: 25px;
-        text-align: center;
-        
-        .price-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            
-            &.free {
-                background: #e8f5e9;
-                color: #2e7d32;
-            }
-            
-            &.paid {
-                background: #e3f2fd;
-                color: #1565c0;
-            }
-            
-            .price-icon {
-                font-size: 18px;
-            }
-            
-            .price-text {
-                font-size: 16px;
-            }
-            
-            .price-note {
-                font-size: 12px;
-                opacity: 0.8;
-            }
-        }
-    }
-
-    /* ورودی تیم */
-    .input-group {
-        margin-bottom: 25px;
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 15px;
-            color: #333;
-            background: #f9f9f9;
-            
-            &:focus {
-                outline: none;
-                border-color: #29a58d;
-                background: white;
-            }
-            
-            &::placeholder {
-                color: #999;
-            }
-        }
-    }
-
-    /* دکمه ثبت‌نام */
-    .submit-button {
-        width: 100%;
-        background: #29a58d;
-        color: white;
-        border: none;
-        padding: 14px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 20px;
-        
-        &:hover {
-            background: #238f7a;
-        }
-    }
-
-    /* اطلاعات پرداخت */
-    .payment-info {
-        background: #f8f9fa;
-        padding: 15px;
-        border-radius: 8px;
-        font-size: 14px;
-        color: #555;
-        
-        p {
-            margin: 0 0 10px 0;
-            font-weight: 600;
-        }
-        
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 10px 0;
-            
-            li {
-                padding: 4px 0;
-            }
-        }
-        
-        .faucet-link {
-            a {
-                color: #29a58d;
-                text-decoration: none;
-                
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-    }
-
-    /* خطای پیش‌نمایش */
-    .error-preview {
-        color: #d32f2f;
-        font-size: 14px;
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    /* حالت پردازش */
-    .processing-state {
-        text-align: center;
-        padding: 30px 0;
-        
-        .loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #29a58d;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        
-        h3 {
-            color: #333;
-            margin: 0 0 8px 0;
-            font-size: 18px;
-        }
-        
-        p {
-            color: #666;
-            margin: 0;
-            font-size: 14px;
-        }
-    }
-
-    /* حالت موفقیت */
-    .success-state {
-        text-align: center;
-        
-        .success-header {
-            margin-bottom: 20px;
-            
-            .checkmark {
-                display: inline-block;
-                width: 50px;
-                height: 50px;
-                background: #4CAF50;
-                color: white;
-                border-radius: 50%;
-                line-height: 50px;
-                font-size: 24px;
-                margin-bottom: 10px;
-            }
-            
-            h3 {
-                color: #333;
-                margin: 0;
-                font-size: 18px;
-            }
-        }
-        
-        .result-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            
-            h4 {
-                margin: 0 0 10px 0;
-                color: #333;
-                font-size: 15px;
-            }
-            
-            .code-block {
-                background: white;
-                padding: 12px;
-                border-radius: 6px;
-                border: 1px solid #ddd;
-                cursor: pointer;
-                
-                &:hover {
-                    border-color: #29a58d;
-                }
-                
-                code {
-                    font-family: monospace;
-                    font-size: 15px;
-                    color: #333;
-                    display: block;
-                    margin-bottom: 5px;
-                }
-                
-                .copy-hint {
-                    color: #29a58d;
-                    font-size: 12px;
-                }
-            }
-        }
-        
-        .transaction-info {
-            background: #e8f5e9;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            
-            h4 {
-                margin: 0 0 8px 0;
-                color: #2e7d32;
-                font-size: 14px;
-            }
-            
-            .tx-link {
-                color: #29a58d;
-                text-decoration: none;
-                font-size: 13px;
-                
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-        
-        .done-button {
-            width: 100%;
-            background: #29a58d;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 15px;
-            cursor: pointer;
-            
-            &:hover {
-                background: #238f7a;
-            }
-        }
-    }
-
-    /* حالت خطا */
-    .error-state {
-        text-align: center;
-        
-        .error-header {
-            margin-bottom: 15px;
-            
-            .error-icon {
-                display: inline-block;
-                width: 50px;
-                height: 50px;
-                background: #f44336;
-                color: white;
-                border-radius: 50%;
-                line-height: 50px;
-                font-size: 24px;
-                margin-bottom: 10px;
-            }
-            
-            h3 {
-                color: #333;
-                margin: 0;
-                font-size: 18px;
-            }
-        }
-        
-        .error-message {
-            background: #ffebee;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            
-            p {
-                margin: 0;
-                color: #c62828;
-                font-size: 14px;
-            }
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            
-            .retry-button {
-                flex: 2;
-                background: #29a58d;
-                color: white;
-                border: none;
-                padding: 12px;
-                border-radius: 6px;
-                font-size: 14px;
-                cursor: pointer;
-            }
-            
-            .cancel-button {
-                flex: 1;
-                background: #e0e0e0;
-                color: #666;
-                border: none;
-                padding: 12px;
-                border-radius: 6px;
-                font-size: 14px;
-                cursor: pointer;
-            }
-        }
-    }
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@media (max-width: 500px) {
-    .contest-modal {
-        padding: 20px;
-        width: 95%;
-    }
-}
->>>>>>> 86d9667444228ce4499fcc49d17e223ecfc76449
